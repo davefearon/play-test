@@ -1,0 +1,17 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>List</h1>
+<p>
+#{list items:models.Picture.findAll(), as:'picture'}
+	<a href="@{downloadPhoto(picture.id)}"><img title="${picture.fileName}" src="@{Application.getPhoto(picture.id)}"></a>
+#{/list}
+</p>
+
+<h1>Add user with file name</h1>
+#{form @addPhotoWithFileName(), enctype:'multipart/form-data'}
+	<p>
+		<input type="file" name="photo">
+		<input type="submit" name="submit" value="Upload">
+	</p>
+#{/form}
