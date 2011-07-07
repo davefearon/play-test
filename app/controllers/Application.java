@@ -34,6 +34,7 @@ public class Application extends Controller {
 		render(frontPost, olderPosts);
     }
 	
+	// START blog tutorial
 	public static void show(Long id) {
 		Post post = Post.findById(id);
 		render(post);
@@ -48,7 +49,9 @@ public class Application extends Controller {
 		flash.success("Thanks for posting %s", author);
 		show(postId);
 	}
+	// END blog tutorial
 	
+	// START servicehub tests
 	public static void testing() {
 		String serviceName = "datadirector_eventschedule";
 		String url = "https://204.232.202.221:59443/sec/servicehub-preprod/services/|service|";
@@ -71,6 +74,45 @@ public class Application extends Controller {
 		render(body);
 	}
 	
+	public static void servicehub() {
+		String url = "https://204.232.202.221:59443/sec/servicehub-preprod/services/|service|";
+		
+		/*
+		// GET
+		String serviceName = "datadirector_eventschedule";
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("appId", "GMUSMOBILE2011");		
+		ServiceHub sh = new ServiceHub(url);
+		
+		String result = sh.get(serviceName, params);
+		render(result);
+		/**/
+		
+		///*
+		// POST
+		String serviceName = "custom_GMUS_gmussubmitservice";
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("ITS_EventName", "Military+Dev");
+		params.put("ITS_EventId", "GMUSMOBILE20114e089249dfe9f");
+		params.put("ITS_EventCode", "militarydev");
+		params.put("data%5BITS_Scenario%5D", "play");
+		params.put("data%5BITS_RemoteUser%5D", "123.456.789.0");
+		params.put("data%5BITS_ClientId%5D", "GMUS");
+		params.put("data%5BITS_SurveyId%5D", "GMUSMOBILE2011");
+		params.put("data%5BITS_DeviceType%5D", "MOBILE-WEB");
+		params.put("data%5Bcontactinfo_givenname%5D", "dave");
+		params.put("data%5Bcontactinfo_surname%5D", "fearon");
+		
+		ServiceHub sh = new ServiceHub(url);
+		String result = sh.post(serviceName, params);
+		render(result);
+		/**/
+	}
+	// END servicehub tests
+	
+	
+	// START image tests
 	public static void images() {
 		render();
 	}
@@ -101,4 +143,5 @@ public class Application extends Controller {
 		response.setContentTypeIfNotSet(picture.image.type());
 		renderBinary(picture.image.get(), picture.fileName);
 	}
+	// END images tests
 }
