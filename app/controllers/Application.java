@@ -74,40 +74,45 @@ public class Application extends Controller {
 		render(body);
 	}
 	
-	public static void servicehub() {
+	public static void servicehub(Integer method) {
 		String url = "https://204.232.202.221:59443/sec/servicehub-preprod/services/|service|";
-		
-		/*
-		// GET
-		String serviceName = "datadirector_eventschedule";
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("appId", "GMUSMOBILE2011");		
-		ServiceHub sh = new ServiceHub(url);
-		
-		String result = sh.get(serviceName, params);
-		render(result);
-		/**/
-		
-		///*
-		// POST
-		String serviceName = "custom_GMUS_gmussubmitservice";
-		
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("ITS_EventName", "Military+Dev");
-		params.put("ITS_EventId", "GMUSMOBILE20114e089249dfe9f");
-		params.put("ITS_EventCode", "militarydev");
-		params.put("data%5BITS_Scenario%5D", "play");
-		params.put("data%5BITS_RemoteUser%5D", "123.456.789.0");
-		params.put("data%5BITS_ClientId%5D", "GMUS");
-		params.put("data%5BITS_SurveyId%5D", "GMUSMOBILE2011");
-		params.put("data%5BITS_DeviceType%5D", "MOBILE-WEB");
-		params.put("data%5Bcontactinfo_givenname%5D", "dave");
-		params.put("data%5Bcontactinfo_surname%5D", "fearon");
-		
-		ServiceHub sh = new ServiceHub(url);
-		String result = sh.post(serviceName, params);
-		render(result);
-		/**/
+		String serviceName;
+        Map<String, String> params = new HashMap<String, String>();
+        ServiceHub sh = new ServiceHub(url);
+        JsonElement result;
+        
+        switch(method) {
+            case 1:
+                // GET
+                serviceName = "datadirector_eventschedule";
+
+                params.put("appId", "GMUSMOBILE2011");
+
+                result = sh.get(serviceName, params);
+                render(result);
+                break;
+            case 2:
+                // POST
+                serviceName = "custom_GMUS_gmussubmitservice";
+
+                params.put("ITS_EventName", "Military+Dev");
+                params.put("ITS_EventId", "GMUSMOBILE20114e089249dfe9f");
+                params.put("ITS_EventCode", "militarydev");
+                params.put("data[ITS_Scenario]", "play");
+                params.put("data[ITS_RemoteUser]", "123.456.789.0");
+                params.put("data[ITS_ClientId]", "GMUS");
+                params.put("data[ITS_SurveyId]", "GMUSMOBILE2011");
+                params.put("data[ITS_DeviceType]", "MOBILE-WEB");
+                params.put("data[contactinfo_givenname]", "dave");
+                params.put("data[contactinfo_surname]", "fearon");
+
+                result = sh.post(serviceName, params);
+                render(result);
+                break;
+            default:
+                render();
+                break;
+        }
 	}
 	// END servicehub tests
 	

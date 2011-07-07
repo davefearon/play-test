@@ -27,7 +27,7 @@ public class ServiceHub extends Model {
 		this.url = url;
 	}
 	
-	private String call( String method, String serviceName, Map<String, String> params ) {
+	private JsonElement call( String method, String serviceName, Map<String, String> params ) {
 		String url = this.url;
 		String tempUrl = url.replace("|service|", serviceName);
 		
@@ -50,17 +50,17 @@ public class ServiceHub extends Model {
 			tbody = WS.url(finalUrl).authenticate(this.username, this.password).get();
 		}
 		
-		//JsonElement body = tbody.getJson();
-		String body = tbody.getString();
+		JsonElement body = tbody.getJson();
+		//String body = tbody.getString();
 		
 		return body;
 	}
 	
-	public String get( String serviceName, Map<String, String> params ) {
+	public JsonElement get( String serviceName, Map<String, String> params ) {
 		return this.call("GET", serviceName, params);
 	}
 	
-	public String post( String serviceName, Map<String, String> params ) {
+	public JsonElement post( String serviceName, Map<String, String> params ) {
 		return this.call("POST", serviceName, params);
 	}
 }
